@@ -8,6 +8,12 @@ const User = require('./modules/user'); // Import the User model
 
 const app = express();
 const PORT = 3001;
+app.use(cors({
+  origin: "https://nova-line.vercel.app", // آدرس فرانت
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 
 // --- Database Connection ---
 // 2. Paste your connection string here and replace <password> with your actual password
@@ -74,7 +80,7 @@ app.post('/api/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    console.log("Login attempt with:", req.body);
+    console.log("Login attempt with:", req.body);-
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
